@@ -44,10 +44,17 @@ def search(target: str):
 
 
 def gen_code():
+    alphanumericlist = string.ascii_uppercase + string.digits
+    all_codes = getallcodes()
+    
+    while True:
+        code = "".join(random.choices(alphanumericlist, k=5))
+        if code not in all_codes:
+            return code
 
-    alphanumericlist = list(string.ascii_uppercase + string.digits)
-    code = ""
+    
 
-    for i in range(5):
-        code += random.choice(alphanumericlist)
-        print(code)
+def getallcodes():
+    data = get_all_data()
+    for i in range(len(data)):
+        return(data[0][i])

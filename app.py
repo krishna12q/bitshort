@@ -2,7 +2,7 @@ from fastapi import FastAPI, Request, Form, HTTPException
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from database_backend import search, add  # Imported database functions
+from database_backend import search, add, gen_code
 
 app = FastAPI()
 
@@ -23,9 +23,15 @@ async def shorten_page(request: Request):
 async def search_page(request: Request):
     return templates.TemplateResponse(request, "search.html", {"message": "Search Links"})
 
-@app.post("/success", response_class=HTMLResponse)
-async def success_page(request: Request):
-    return templates.TemplateResponse(request, "success.html", {"message": "Success!"})
+@app.get("/success", response_class=HTMLResponse)
+async def success_page(request: Request, code: str | None = None):
+    message = f"Success! Your short code is: {code}" if code else "Success!"
+    
+    return templates.TemplateResponse(
+        request, 
+        "succsess.html", 
+        {"message": message, "code": code}
+    )
 
 # Fixed function name to prevent infinite recursion
 @app.post("/backend-search")
@@ -39,6 +45,7 @@ async def backend_search(link: str = Form(...)):
     return RedirectResponse(url=url_value, status_code=302)
 
 @app.post("/backend_shorten")
-async def shorten(code: str = Form(...), link: str = Form(...)):
+async def shorten(link: str = Form(...)):
+    code = gen_code()
     add(code, link)
-    return RedirectResponse(url="/success", status_code=303)
+    return RedirectResponse(url=f"/success?code={code}", status_code=303)
