@@ -1,10 +1,27 @@
-* {
-    font-family: 'Lucida Sans';
+@font-face {
+  font-family: 'norwester';
+  src: url('norwester.otf') format('opentype');
+  font-weight: 100px;
+  font-style: thin;
 }
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+p, input {
+    font-family: 'Inter', sans-serif;
+}
+
+h1, button {
+    font-family: 'Norwester', sans-serif;
+}
+
 
 .h {
     text-align: center;
     margin-top: 150px;
+    size: 60px;
 }
 
 .form-container {

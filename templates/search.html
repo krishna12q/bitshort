@@ -1,17 +1,123 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Bitshort | Search</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="{{ url_for('static', path='/style.css') }}">
+    <link rel="icon" type="image/png" href="/static/Bitshort_Logo.png">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #080808;
+            color: #ffffff;
+            min-height: 100vh;
+            margin: 0;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .h {
+            font-size: clamp(38px, 7vw, 64px);
+            font-weight: 900;
+            letter-spacing: -3px;
+            text-align: center;
+            margin: 0 0 18px;
+        }
+
+        p {
+            color: #888888;
+            font-size: 15px;
+            line-height: 1.7;
+            text-align: center;
+            max-width: 420px;
+            margin: 0 0 35px;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 420px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 16px;
+            background: #111111;
+            border: 1px solid #333333;
+            border-radius: 5px;
+            color: #ffffff;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        input::placeholder {
+            color: #666666;
+        }
+
+        input:focus {
+            border-color: #ffffff;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ffffff;
+            border-radius: 5px;
+            background: #ffffff;
+            color: #080808;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        button:hover {
+            background: transparent;
+            color: #ffffff;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+    </style>
 </head>
+
 <body>
-    <h1 class="h">Url Search</h1>
-    <p style="text-align: center;">Add The Url And Click Shorten Also Make Sure It Is A Valid Bitshort URL</p>
+
+    <h1 class="h">Search.</h1>
+
+    <p>
+        Enter a Bitshort URL or short code to find
+        and access its original destination.
+    </p>
+
     <div class="form-container">
-        <form action="/backend-search"" method="post">
-            <input type="text" name="link" placeholder="bitshot.com/k12q">
+        <form action="/backend-search" method="post">
+            <input
+                type="text"
+                name="link"
+                placeholder="Enter your short URL or code..."
+                required
+            >
+
             <button type="submit">Search</button>
         </form>
     </div>

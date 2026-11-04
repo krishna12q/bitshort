@@ -1,21 +1,111 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Bitshort</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="{{ url_for('static', path='/style.css') }}">
+    <link rel="icon" type="image/png" href="/static/Bitshort_Logo.png">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #080808;
+            color: #ffffff;
+            min-height: 100vh;
+            margin: 0;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .h {
+            font-size: clamp(38px, 7vw, 64px);
+            font-weight: 900;
+            letter-spacing: -3px;
+            text-align: center;
+            margin: 0 0 18px;
+        }
+
+        p {
+            color: #888888;
+            font-size: 15px;
+            line-height: 1.7;
+            text-align: center;
+            max-width: 420px;
+            margin: 0 0 38px;
+        }
+
+        .form-container {
+            display: flex;
+            gap: 14px;
+            width: 100%;
+            max-width: 340px;
+        }
+
+        .form-container form {
+            flex: 1;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px 20px;
+            border: 1px solid #ffffff;
+            border-radius: 5px;
+            background: #ffffff;
+            color: #080808;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        button:hover {
+            background: transparent;
+            color: #ffffff;
+        }
+
+        button:active {
+            transform: scale(0.97);
+        }
+
+        @media (max-width: 400px) {
+            .form-container {
+                flex-direction: column;
+                max-width: 260px;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <h1 class="h">Bitshort - Url Shortner</h1>
-    <p style="text-align: center;">Click Shorten To Make A Url Shorter And Search To Check A Shortened URL</p>
+
+    <h1 class="h">Bitshort.</h1>
+
+    <p>
+        Make your long URLs shorter and easier to share.
+        Create a short link or search for an existing one.
+    </p>
+
     <div class="form-container">
+
         <form method="post" action="/shorten">
             <button type="submit">Shorten</button>
         </form>
+
         <form method="post" action="/search">
             <button type="submit">Search</button>
         </form>
+
     </div>
 
 </body>

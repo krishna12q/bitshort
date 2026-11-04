@@ -1,6 +1,8 @@
 import sqlite3
 import string
 import random
+import re
+
 
 # Initialize Database Table
 def init_db():
@@ -9,7 +11,7 @@ def init_db():
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS urls (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                code TEXT NOT NULL,
+                code TEXT NOT NULL UNIQUE,
                 url TEXT NOT NULL
             )
         """)
@@ -22,11 +24,11 @@ def add(code: str, url: str):
         cursor = conn.cursor()
         cursor.execute("INSERT INTO urls (code, url) VALUES (?, ?)", (code, url))
 
-def get_all_data():
+def getallcodes():
     with sqlite3.connect("db.db") as conn:
         cursor = conn.cursor()
-        cursor.execute("SELECT code, url FROM urls")
-        return cursor.fetchall()
+        cursor.execute("SELECT code FROM urls")
+        return {row[0] for row in cursor.fetchall()}
 
 def search(target: str):
     with sqlite3.connect("db.db") as conn:
@@ -52,9 +54,16 @@ def gen_code():
         if code not in all_codes:
             return code
 
-    
 
-def getallcodes():
-    data = get_all_data()
-    for i in range(len(data)):
-        return(data[0][i])
+url_pattern = re.compile(r"^(https://|https?://[\w.-]+\.[a-zA-Z]{2,})")
+not_prefix = re.compile(r"^[\w.-]+\.[a-zA-Z]{2,}")
+
+def validate_url(input):
+    if bool(url_pattern.match(input)) == False:
+        if bool(not_prefix.match(input)) == True:
+            new_url = "https://"+input
+            return new_url
+        else:
+            return "Error 7: Invalid Url Format"
+    else:
+        return input

@@ -2,7 +2,7 @@ from fastapi import FastAPI, Request, Form, HTTPException
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from database_backend import search, add, gen_code
+from database_backend import search, add, gen_code, validate_url
 
 app = FastAPI()
 
@@ -46,6 +46,9 @@ async def backend_search(link: str = Form(...)):
 
 @app.post("/backend_shorten")
 async def shorten(link: str = Form(...)):
-    code = gen_code()
-    add(code, link)
-    return RedirectResponse(url=f"/success?code={code}", status_code=303)
+    if validate_url(link) != "Error 7: Invalid Url Format":
+        code = gen_code()
+        add(code, validate_url(link))
+        return RedirectResponse(url=f"/success?code={code}", status_code=303)
+    else:
+        return validate_url(link)
