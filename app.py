@@ -13,7 +13,7 @@ templates = Jinja2Templates(directory="templates")
 
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
-    return templates.TemplateResponse(request, "index.html", {"message": "Hello from FastAPI!"})
+    return templates.TemplateResponse(request, "index.html", {"message": "Hello Testing from FastAPI!"})
 
 @app.post("/shorten", response_class=HTMLResponse)
 async def shorten_page(request: Request):
@@ -25,7 +25,7 @@ async def search_page(request: Request):
 
 @app.get("/success", response_class=HTMLResponse)
 async def success_page(request: Request, code: str | None = None):
-    message = f"Success! Your short code is: {code}" if code else "Success!"
+    message = f"Success! Your short code is: {code}" if code else "Success! : Operation Done Successfully"
     
     return templates.TemplateResponse(
         request, 
